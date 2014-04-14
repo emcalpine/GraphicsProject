@@ -162,7 +162,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 	int die_chance = 5;	//=percent chance-1
 	switch (direction) {
 	case 1:
-		if (in[s_row-1][s_col-1] != 0 && in[s_row-1][s_col-1] != 5) {
+		if (in[s_row-1][s_col-1] == 1 || in[s_row-1][s_col-1] == 6) {
 			in[s_row-1][s_col-1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row-1,s_col-1,in);
@@ -171,7 +171,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 2:
-		if (in[s_row-1][s_col] != 0 && in[s_row-1][s_col] != 5) {
+		if (in[s_row-1][s_col] == 1 || in[s_row-1][s_col] == 6) {
 			in[s_row-1][s_col] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row-1,s_col,in);
@@ -180,7 +180,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 3:
-		if (in[s_row-1][s_col+1] != 0 && in[s_row-1][s_col+1] != 5) {
+		if (in[s_row-1][s_col+1] == 1 || in[s_row-1][s_col+1] == 6) {
 			in[s_row-1][s_col+1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row-1,s_col+1,in);
@@ -189,7 +189,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 4:
-		if (in[s_row][s_col-1] != 0 && in[s_row][s_col-1] != 5) {
+		if (in[s_row][s_col-1] == 1 || in[s_row][s_col-1] == 6) {
 			in[s_row][s_col-1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row,s_col-1,in);
@@ -198,7 +198,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 5:
-		if (in[s_row][s_col+1] != 0 && in[s_row][s_col+1] != 5) {
+		if (in[s_row][s_col+1] == 1 || in[s_row][s_col+1] == 6) {
 			in[s_row][s_col+1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row,s_col+1,in);
@@ -207,7 +207,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 6:
-		if (in[s_row+1][s_col-1] != 0 && in[s_row+1][s_col-1] != 5) {
+		if (in[s_row+1][s_col-1] == 1 || in[s_row+1][s_col-1] == 6) {
 			in[s_row+1][s_col-1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row+1,s_col-1,in);
@@ -216,7 +216,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 7:
-		if (in[s_row+1][s_col] != 0 && in[s_row+1][s_col] != 5) {
+		if (in[s_row+1][s_col] == 1 || in[s_row+1][s_col] == 6) {
 			in[s_row+1][s_col] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row+1,s_col,in);
@@ -225,7 +225,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 		}
 
 	case 8:
-		if (in[s_row+1][s_col+1] != 0 && in[s_row+1][s_col+1] != 5) {
+		if (in[s_row+1][s_col+1] == 1 || in[s_row+1][s_col+1] == 6) {
 			in[s_row+1][s_col+1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row+1,s_col+1,in);
