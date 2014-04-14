@@ -1,4 +1,3 @@
-
 //Dan Miller and The funky Bunch
 //Project 3
 
@@ -159,11 +158,12 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 
 
 	//branch in a random direction
-	int direction = rand()% 7+1;
-	int die_chance = 5;
+	int direction = rand()% 8+1;
+	int die_chance = 5;	//=percent chance-1
 	switch (direction) {
 	case 1:
 		if (in[s_row-1][s_col-1] != 0 && in[s_row-1][s_col-1] != 5) {
+			in[s_row-1][s_col-1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row-1,s_col-1,in);
 			break;
@@ -226,7 +226,7 @@ void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 
 	case 8:
 		if (in[s_row+1][s_col+1] != 0 && in[s_row+1][s_col+1] != 5) {
-			in[s_row+1][s_col+11] = 6;
+			in[s_row+1][s_col+1] = 6;
 			if (rand()%100 > die_chance)
 				branch(s_row+1,s_col+1,in);
 			break;
