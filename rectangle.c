@@ -32,13 +32,11 @@ void display(void);
 void reshape(int, int);
 void axis(void);
 void drawLegs(void);
-float eyeX = 0.0;
-float eyeY = 0.0;
-float eyeZ = 0.0;
+float eyeX = 14;
+float eyeY = 180;
+float eyeZ = -100;
 float centerY=0.0;
-float centerX=9.0;
-float centerZ=0.0;
-int currentAngle = 0;
+float centerX=0.0;
 int lastX = 0;
 int lastY = 0;
 float xPoints[500];
@@ -81,77 +79,45 @@ void mouseButton(int button, int state, int x, int y) {
 	}
 }
 void myKey(unsigned char key,int x, int y){
- 
-     if(key == 'w' || key == 'W')
-     {
-            float radians = currentAngle*3.14 / 180;
-            eyeX = eyeX + cos(radians);
-            centerX = centerX + cos(radians);
- 
-            eyeZ = eyeZ + sin(radians);
-            centerZ = centerZ + sin(radians);
-     }
-     else if(key == 's' || key == 'S')
-          //have to add this soon
-     else if(key == 'a' || key == 'A')
-          {    
-          if(currentAngle >=0 && currentAngle <= 90){
-             centerX = centerX + 0.1;
-             centerZ = centerZ - 0.1;
-          }
-          else if(currentAngle > 90 && currentAngle < 180){
-            centerZ = centerZ + 0.1;
-            centerX = centerX + 0.1;
-          }
-          else if(currentAngle > 180 && currentAngle <= 270)
-          {
-               centerZ = centerZ + 0.1;
-               centerX = centerX - 0.1;
-           }
-           else if(currentAngle > 270 && currentAngle < 360)
-           {
-                centerX = centerX - 0.1;
-                centerZ = centerZ - 0.1;
-            }
-          
-           if(currentAngle == 0)
-             currentAngle = 359;
-           else
-               currentAngle--;
-               
-     }
-     else if(key == 'd' || key == 'D')
-     {    
-          if(currentAngle > 0 && currentAngle < 90){
-             centerX = centerX - 0.1;
-             centerZ = centerZ + 0.1;
-          }
-          else if(currentAngle >= 90 && currentAngle <= 180){
-            centerZ = centerZ - 0.1;
-            centerX = centerX - 0.1;
-          }
-          else if(currentAngle > 180 && currentAngle <= 270)
-          {
-               centerZ = centerZ - 0.1;
-               centerX = centerX + 0.1;
-           }
-           else if(currentAngle > 270 && currentAngle < 359)
-           {
-                centerX = centerX + 0.1;
-                centerZ = centerZ + 0.1;
-            }
-          
-           if(currentAngle == 359)
-             currentAngle = 0;
-           else
-               currentAngle++;   
-     }
- 
- 
-     display();  
+
+
+	if(key == 'w' || key == 'W')
+		eyeZ = eyeZ - 0.5f;
+	else if(key == 's' || key == 'S')
+		eyeZ = eyeZ + 0.5;
+	else if(key == 'a' || key == 'A')
+		eyeX = eyeX - 0.5f;
+	else if(key == 'd' || key == 'D')
+		eyeX = eyeX + 0.5;
+	else if(key == 'e' || key == 'E')
+		eyeY = eyeY + 0.5;
+	else if(key == 'q' || key == 'Q')
+		eyeY = eyeY - 0.5;
+
+
+	display();   
 }
 void processMousePassiveMotion(int x,int y){
-     //Nick may add something here later for funsies
+
+
+	if(lastX == 0 && lastY){
+		lastX = x;
+		lastY = y;
+	}
+	if(y < lastY)
+		centerY = centerY + ((lastY - y) * 0.04);
+	else if(y > lastY)
+		centerY = centerY - ((y - lastY) * 0.04);
+
+	if(x < lastX)
+		centerX = centerX - ((lastX - x) * 0.04);
+	else if(x > lastX)
+		centerX = centerX + ((x - lastX) * 0.04);
+
+	lastY = y;
+	lastX = x;
+
+	display();
 }
 int main(int argc, char** argv)
 {        
@@ -165,13 +131,6 @@ int main(int argc, char** argv)
 	system("pause");
 	/* Standard GLUT initialization */
 	//glutInit(&argc,argv);
-	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-        glutInitWindowSize(700,700);
-        glutInitWindowPosition(50,50);
-        glutCreateWindow("Rainbow Road");
-        glutDisplayFunc(display);
-        glutReshapeFunc(reshape);
-	glutKeyboardFunc(myKey);
 
 
 
@@ -191,7 +150,29 @@ void createBranches(short int in[MAPSIZE][MAPSIZE],int num) {
 			if ( in[i][j] == 5 && rand() %100 < num)
 				branch(i,j,in);  
 		}
-	}          
+	}  
+	for (i = 0; i < MAPSIZE - 1; i++) {
+		for (j = 0; j < MAPSIZE - 1; j++) {
+			if( in[i][j] == 1){
+				if( in[i-1][j-1] == 6 || in[i-1][j-1] == 5)
+					in[i][j] = 7;
+				else if( in[i-1][j] == 6 || in[i-1][j] == 5)
+					in[i][j] = 7;
+				else if( in[i-1][j+1] == 6 || in[i-1][j+1] == 5)
+					in[i][j] = 7;
+				else if( in[i][j-1] == 6 || in[i][j-1] == 5)
+					in[i][j] = 7;
+				else if( in[i][j+1] == 6 || in[i][j+1] == 5)
+					in[i][j] = 7;
+				else if( in[i+1][j-1] == 6 || in[i+1][j-1] == 5)
+					in[i][j] = 7;
+				else if( in[i+1][j] == 6 || in[i+1][j] == 5)
+					in[i][j] = 7;
+				else if( in[i+1][j+1] == 6 || in[i+1][j+1] == 5)
+					in[i][j] = 7;
+			}
+		}
+	}
 }
 void branch(int s_row, int s_col, short int in[MAPSIZE][MAPSIZE]) {
 	//s_row and s_col refer to a grid in the array where there is a 5.  At this point the path will branch
