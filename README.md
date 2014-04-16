@@ -13,6 +13,7 @@ o Create a random map
 - 4 = End Point
 - 5 = Main Path
 - 6 = Branch Path
+- 7 = REquires an object because it directly borders the path or a branch
 
 Nick Benedict and Zach
 ----------------------
