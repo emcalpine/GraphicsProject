@@ -1,4 +1,3 @@
-
 //Dan Miller and The funky Bunch
 //Project 3
 
@@ -169,7 +168,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
         glutInitWindowSize(700,700);
         glutInitWindowPosition(50,50);
-        glutCreateWindow("War Games Scene");
+        glutCreateWindow("Rainbow Road");
         glutDisplayFunc(display);
         glutReshapeFunc(reshape);
 	glutKeyboardFunc(myKey);
